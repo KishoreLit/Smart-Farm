@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crop Calendar</title>
+  <link rel="stylesheet" href="crop-calendar.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <section class="crop-calendar-section">
+    <h1>🌾 Crop Calendar</h1>
+    <p>Select your region and crop to get sowing and harvesting guidance.</p>
+
+    <form id="cropForm" class="crop-form">
+      <div class="form-group">
+        <label for="state">Select Your State:</label>
+        <select id="state" name="state" required>
+          <option value="">-- Choose State --</option>
+          <option>Andhra Pradesh</option>
+          <option>Tamil Nadu</option>
+          <option>Telangana</option>
+          <option>Karnataka</option>
+          <option>Maharashtra</option>
+          <option>Punjab</option>
+          <option>Uttar Pradesh</option>
+          <option>West Bengal</option>
+          <option>Rajasthan</option>
+          <option>Odisha</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="crop">Select Crop:</label>
+        <select id="crop" name="crop" required>
+          <option value="">-- Choose Crop --</option>
+          <option>Paddy</option>
+          <option>Wheat</option>
+          <option>Cotton</option>
+          <option>Sugarcane</option>
+          <option>Maize</option>
+          <option>Groundnut</option>
+          <option>Millet</option>
+        </select>
+      </div>
+
+      <button type="submit">Get Calendar</button>
+    </form>
+
+    <div id="result" class="result-box"></div>
+    <a href="index.html" class="home-btn"> Return </a>
+
+  </section>
+
+  <script>
+    const cropData = {
+      "Paddy": {
+        sowing: "June - July",
+        harvesting: "October - November",
+        desc: "Paddy thrives in warm, humid climates. Ideal for Kharif season.",
+        img: "paddy.png"
+      },
+      "Wheat": {
+        sowing: "November - December",
+        harvesting: "March - April",
+        desc: "Wheat prefers cooler climates, grown mainly in Rabi season.",
+        img: "wheat.png"
+      },
+      "Cotton": {
+        sowing: "April - May",
+        harvesting: "September - October",
+        desc: "Cotton requires long frost-free periods and plenty of sunshine.",
+        img: "cotton.png"
+      },
+      "Sugarcane": {
+        sowing: "January - March",
+        harvesting: "December - January (next year)",
+        desc: "Sugarcane needs a tropical climate and takes about a year to harvest.",
+        img: "sugarcane.png"
+      },
+      "Maize": {
+        sowing: "June - July",
+        harvesting: "September - October",
+        desc: "Maize is a warm-weather crop and grows quickly with good irrigation.",
+        img: "maize.png"
+      },
+      "Groundnut": {
+        sowing: "June - July",
+        harvesting: "October - November",
+        desc: "Groundnuts need well-drained soil and moderate rainfall.",
+        img: "groundnut.png"
+      },
+      "Millet": {
+        sowing: "July - August",
+        harvesting: "October - November",
+        desc: "Millets grow in dry regions and are drought-resistant grains.",
+        img: "millet.png"
+      }
+    };
+  
+    document.getElementById("cropForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const crop = document.getElementById("crop").value;
+      const state = document.getElementById("state").value;
+      const data = cropData[crop];
+  
+      if (data) {
+        document.getElementById("result").innerHTML = `
+          <h2>${crop} in ${state}</h2>
+          <div class="result-flex">
+            <div class="result-text">
+              <p><strong>Sowing Months:</strong> ${data.sowing}</p>
+              <p><strong>Harvesting Months:</strong> ${data.harvesting}</p>
+              <p>${data.desc}</p>
+            </div>
+            <div class="result-img">
+              <img src="${data.img}" alt="${crop}" />
+            </div>
+          </div>
+        `;
+      } else {
+        document.getElementById("result").innerHTML = "<p class='error'>Data not available. Please select valid options.</p>";
+      }
+    });
+  </script>
+  
+
+</body>
+</html>
